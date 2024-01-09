@@ -74,7 +74,7 @@ public class RegisterScreen extends AppCompatActivity {
         });
 
         redirectLoginButton.setOnClickListener(v -> {
-            Intent register = new Intent(this, RegisterScreen.class);
+            Intent register = new Intent(this, LoginScreen.class);
             startActivity(register);
             finish();
         });
