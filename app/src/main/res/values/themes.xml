@@ -1,0 +1,15 @@
+<resources>
+
+    <color name="primary">#FF111111</color>
+    <color name="weak_primary">#FF555555</color>
+    <color name="secondary">#FFFF0000</color>
+    <color name="weak_secondary">#FFFF5555</color>
+    <color name="background">#FFFFFFFF</color>
+    <color name="support_text">#FF007BFF</color>
+
+    <style name="Base.Theme.Dishcover" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="Theme.Dishcover" parent="Base.Theme.Dishcover" />
+</resources>

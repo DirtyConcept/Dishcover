@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "44750224597",
+    "project_id": "dishcover-91235",
+    "storage_bucket": "dishcover-91235.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:44750224597:android:c87da78c5c99856c8ab65c",
+        "android_client_info": {
+          "package_name": "dev.dirtyconcept.dishcover"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDwpG7CAUERi1m3igLiYeKh7rfbt66mtM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

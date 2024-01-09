@@ -1,0 +1,16 @@
+<resources>
+    <!-- Dark Theme Colors -->
+    <color name="primary">#FF000000</color> <!-- Adjusted for dark theme -->
+    <color name="weak_primary">#FF333333</color> <!-- Adjusted for dark theme -->
+    <color name="secondary">#FF990000</color> <!-- Adjusted for dark theme -->
+    <color name="weak_secondary">#FF993333</color> <!-- Adjusted for dark theme -->
+    <color name="background">#FF121212</color> <!-- Adjusted for dark theme -->
+
+    <style name="Base.Theme.Dishcover" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary</item>
+        <item name="colorAccent">@color/secondary</item>
+    </style>
+</resources>

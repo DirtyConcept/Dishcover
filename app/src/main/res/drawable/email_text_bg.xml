@@ -1,0 +1,44 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Unselected State -->
+    <item android:state_focused="false">
+        <layer-list>
+            <!-- Background Rectangle with Border -->
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="@android:color/transparent" />
+                    <stroke
+                        android:width="2dp"
+                        android:color="@color/weak_secondary" /> <!-- Border color, you can change it to red or any other color -->
+                    <corners android:radius="28dp" />
+                </shape>
+            </item>
+
+            <!-- Lock Icon -->
+            <item
+                android:drawable="@drawable/email_icon"
+                android:gravity="center_vertical|end"
+                android:left="8dp"
+                android:right="12dp"
+                android:width="30dp"
+                android:height="30dp"/>
+        </layer-list>
+    </item>
+
+    <!-- Focused State with Ripple Effect -->
+    <item android:state_focused="true">
+        <ripple android:color="?android:attr/colorControlHighlight">
+            <item>
+                <!-- Background Rectangle with Border -->
+                <shape android:shape="rectangle">
+                    <solid android:color="@android:color/transparent" />
+                    <stroke
+                        android:width="2dp"
+                        android:color="@color/secondary" /> <!-- Border color, you can change it to red or any other color -->
+                    <corners android:radius="28dp" />
+                </shape>
+            </item>
+        </ripple>
+    </item>
+
+</selector>

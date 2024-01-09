@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Nunito">
+        <item name="android:fontFamily">@font/nunito</item>
+    </style>
+
+    <style name="NunitoRegular">
+        <item name="android:fontFamily">@font/nunito_regular</item>
+    </style>
+
+    <style name="NunitoBold">
+        <item name="android:fontFamily">@font/nunito_bold</item>
+    </style>
+</resources>

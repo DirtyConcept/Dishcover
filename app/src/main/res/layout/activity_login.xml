@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:background="@color/secondary" />
+
+    <TextView
+        style="@style/NunitoBold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="115dp"
+        android:layout_marginBottom="5dp"
+        android:textSize="30sp"
+        android:textColor="@color/weak_primary"
+        android:text="@string/login_upper"
+        android:textStyle="bold"
+        android:layout_gravity="center_vertical|center_horizontal"/>
+
+    <EditText
+        style="@style/NunitoRegular"
+        android:id="@+id/login_email"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:layout_marginTop="50dp"
+        android:hint="@string/email"
+        android:textColorHint="@color/weak_primary"
+        android:inputType="textEmailAddress"
+        android:autofillHints=""
+        android:textDirection="locale"
+        android:background="@drawable/email_text_bg"
+        android:gravity="center_vertical"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp" />
+
+    <EditText
+        style="@style/NunitoRegular"
+        android:id="@+id/login_password"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:layout_marginTop="8dp"
+        android:textColorHint="@color/weak_primary"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:autofillHints=""
+        android:background="@drawable/password_text_bg"
+        android:gravity="center_vertical"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp" />
+
+    <Button
+        style="@style/NunitoBold"
+        android:id="@+id/login"
+        android:layout_width="125dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/login"
+        android:textSize="15sp"
+        android:radius="8dp"
+        android:backgroundTint="@color/button_tint_selector"
+        android:textColor="@color/background"
+        android:padding="10dp"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:stateListAnimator="@null"/>
+
+    <TextView
+        style="@style/NunitoBold"
+        android:id="@+id/error_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_marginTop="8dp"
+        android:text=""
+        android:textColor="@color/secondary" />
+
+    <TextView
+        style="@style/NunitoBold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_marginTop="60dp"
+        android:text="@string/login_no_account"/>
+
+    <Button
+        style="@style/NunitoBold"
+        android:id="@+id/redirect_register"
+        android:layout_width="125dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/register"
+        android:textSize="15sp"
+        android:radius="8dp"
+        android:backgroundTint="@color/button_tint_selector"
+        android:textColor="@color/background"
+        android:padding="10dp"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:stateListAnimator="@null"/>
+
+</LinearLayout>
