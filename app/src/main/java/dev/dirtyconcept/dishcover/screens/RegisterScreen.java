@@ -88,7 +88,7 @@ public class RegisterScreen extends AppCompatActivity {
 
     private void handleLoginFailure(Exception exception, TextView errorMessageTextView) {
         if (exception == null) {
-            errorMessageTextView.setText(R.string.login_failed);
+            errorMessageTextView.setText(R.string.register_failed);
         } else if (exception instanceof FirebaseAuthUserCollisionException) {
             errorMessageTextView.setText(R.string.register_user_conflict);
         } else if (exception instanceof FirebaseTooManyRequestsException) {
