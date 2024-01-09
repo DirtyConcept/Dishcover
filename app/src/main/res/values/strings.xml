@@ -22,5 +22,7 @@
     <string name="register_upper">REGISTER</string>
     <string name="register_have_account">Already have an account?</string>
     <string name="register_failed">Failed to register in the system.</string>
-    <string name="register_user_conflict">An account with this email already exists.</string>
+    <string name="register_user_conflict">An account with one of the credentials already exists.</string>
+    <string name="register_password_mismatch">Passwords do not match. Please make sure both passwords are identical.</string>
+
 </resources>
