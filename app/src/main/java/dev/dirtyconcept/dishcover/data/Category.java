@@ -1,11 +1,18 @@
 package dev.dirtyconcept.dishcover.data;
 
-import android.graphics.Path;
-
 import java.util.Optional;
 
 public enum Category {
-    PIZZA, MEAT, SPAGHETTI, BURGERS, TOAST, SALAD, SOUP;
+    PIZZA(0),
+    MEAT(1),
+    SPAGHETTI(2),
+    BURGERS(3),
+    TOAST(4),
+    SALAD(5),
+    SOUP(6)
+    // More to come...
+    ;
+
 
     private final int id;
     Category(final int id) {
@@ -22,5 +29,9 @@ public enum Category {
         }
 
         return Optional.empty();
+    }
+
+    public static Category fromId(int id) {
+        return findCategoryById(id).orElse(null);
     }
 }

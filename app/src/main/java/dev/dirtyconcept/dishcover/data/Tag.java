@@ -6,6 +6,7 @@ public enum Tag {
     HIGH_PROTEIN(0),
     LOW_CARBS(1),
     GLUTEN_FREE(2)
+    // More to come...
     ;
 
     private final int id;
@@ -24,5 +25,9 @@ public enum Tag {
         }
 
         return Optional.empty();
+    }
+
+    public static Tag fromId(int id) {
+        return findTagById(id).orElse(null);
     }
 }
