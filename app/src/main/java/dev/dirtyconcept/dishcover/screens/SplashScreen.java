@@ -17,18 +17,18 @@ public class SplashScreen extends AppCompatActivity {
 
         FirebaseUser user = auth.getCurrentUser();
         if (user == null) {
-            registerTo(LoginScreen.class);
+            redirectTo(LoginScreen.class);
             return;
         }
 
         user.reload().addOnCompleteListener(task -> {
-            if (!task.isSuccessful() && auth.getCurrentUser() == null) registerTo(LoginScreen.class);
-            else registerTo(HomeScreen.class);
+            if (!task.isSuccessful() && auth.getCurrentUser() == null) redirectTo(LoginScreen.class);
+            else redirectTo(HomeScreen.class);
         });
     }
 
-    public void registerTo(Class<?> destinationClass) {
-        Intent login = new Intent(this, destinationClass);
+    public void redirectTo(Class<?> destinationClass) {
+        Intent login = new Intent(SplashScreen.this, destinationClass);
         startActivity(login);
         finish();
     }
