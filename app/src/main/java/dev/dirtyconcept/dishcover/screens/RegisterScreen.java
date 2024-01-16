@@ -19,65 +19,65 @@ import dev.dirtyconcept.dishcover.utils.AnimationCommons;
 import dev.dirtyconcept.dishcover.utils.ValidationUtils;
 
 public class RegisterScreen extends AppCompatActivity {
-
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private FirebaseAuth auth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        EditText usernameField = AnimationCommons.setupField(this, R.id.register_username, R.string.username);
-        EditText emailField = AnimationCommons.setupField(this, R.id.register_email, R.string.email);
-        EditText passwordField = AnimationCommons.setupField(this, R.id.register_password, R.string.password);
-        EditText repasswordField = AnimationCommons.setupField(this, R.id.register_repassword, R.string.reenter_password);
+        EditText usernameField = AnimationCommons.setupField(RegisterScreen.this, R.id.register_username, R.string.username);
+        EditText emailField = AnimationCommons.setupField(RegisterScreen.this, R.id.register_email, R.string.email);
+        EditText passwordField = AnimationCommons.setupField(RegisterScreen.this, R.id.register_password, R.string.password);
+        EditText repasswordField = AnimationCommons.setupField(RegisterScreen.this, R.id.register_repassword, R.string.reenter_password);
 
         Button registerButton = findViewById(R.id.register);
         Button redirectLoginButton = findViewById(R.id.redirect_login);
         TextView textViewErrorMessage = findViewById(R.id.error_message);
 
-        registerButton.setOnClickListener(v -> {
-            textViewErrorMessage.setText("");
+        registerButton.setOnClickListener(v ->
+                attemptRegistration(
+                        usernameField.getText().toString(),
+                        emailField.getText().toString(),
+                        passwordField.getText().toString(),
+                        repasswordField.getText().toString(),
+                        textViewErrorMessage
+                )
+        );
 
-            String username = usernameField.getText().toString();
-            String email = emailField.getText().toString();
-            String password = passwordField.getText().toString();
+        redirectLoginButton.setOnClickListener(v -> redirectTo(LoginScreen.class));
+    }
 
-            if (ValidationUtils.isEmpty(username, email, password)) {
-                textViewErrorMessage.setText(R.string.empty_fields);
-                return;
-            }
+    private void attemptRegistration(String username, String email, String password,
+                                     String repassword, TextView errorMessageTextView) {
+        errorMessageTextView.setText("");
 
-            if (!isValidFormat(username, email, password)) {
-                textViewErrorMessage.setText(R.string.wrong_format);
-                return;
-            }
+        if (ValidationUtils.isEmpty(username, email, password)) {
+            errorMessageTextView.setText(R.string.empty_fields);
+            return;
+        }
 
-            if (!Objects.equals(passwordField.getText().toString(), repasswordField.getText().toString())) {
-                textViewErrorMessage.setText(R.string.register_user_conflict);
-                return;
-            }
+        if (!isValidFormat(username, email, password)) {
+            errorMessageTextView.setText(R.string.wrong_format);
+            return;
+        }
 
-            registerButton.setEnabled(false);
+        if (!Objects.equals(password, repassword)) {
+            errorMessageTextView.setText(R.string.register_user_conflict);
+            return;
+        }
 
-            mAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, task -> {
-                        if (task.isSuccessful() && task.getResult().getUser() != null) {
-                            Intent main = new Intent(this, MainScreen.class);
-                            startActivity(main);
-                            finish();
-                        } else {
-                            handleLoginFailure(task.getException(), textViewErrorMessage);
-                        }
-                        registerButton.setEnabled(true);
-                    });
-        });
+        setSignupButtonState(false);
 
-        redirectLoginButton.setOnClickListener(v -> {
-            Intent register = new Intent(this, LoginScreen.class);
-            startActivity(register);
-            finish();
-        });
+        auth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful() && task.getResult().getUser() != null) {
+                        redirectTo(HomeScreen.class);
+                    } else {
+                        handleRegistrationFailure(task.getException(), errorMessageTextView);
+                    }
+                    setSignupButtonState(true);
+                });
     }
 
     private boolean isValidFormat(String username, String email, String password) {
@@ -86,7 +86,7 @@ public class RegisterScreen extends AppCompatActivity {
                 ValidationUtils.isValidPassword(password);
     }
 
-    private void handleLoginFailure(Exception exception, TextView errorMessageTextView) {
+    private void handleRegistrationFailure(Exception exception, TextView errorMessageTextView) {
         if (exception == null) {
             errorMessageTextView.setText(R.string.register_failed);
         } else if (exception instanceof FirebaseAuthUserCollisionException) {
@@ -96,5 +96,15 @@ public class RegisterScreen extends AppCompatActivity {
         } else {
             errorMessageTextView.setText(R.string.register_failed);
         }
+    }
+
+    private void setSignupButtonState(boolean enabled) {
+        findViewById(R.id.register).setEnabled(enabled);
+    }
+
+    private void redirectTo(Class<?> destinationClass) {
+        Intent intent = new Intent(RegisterScreen.this, destinationClass);
+        startActivity(intent);
+        finish();
     }
 }

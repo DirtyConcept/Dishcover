@@ -12,30 +12,24 @@ public class SplashScreen extends AppCompatActivity {
     private FirebaseAuth auth = FirebaseAuth.getInstance();
 
     @Override
-    protected void onCreate(Bundle state) {
-        super.onCreate(state);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         FirebaseUser user = auth.getCurrentUser();
         if (user == null) {
-            redirectLogin();
+            registerTo(LoginScreen.class);
             return;
         }
 
         user.reload().addOnCompleteListener(task -> {
-            if (!task.isSuccessful() && auth.getCurrentUser() == null) redirectLogin();
-            else redirectMain();
+            if (!task.isSuccessful() && auth.getCurrentUser() == null) registerTo(LoginScreen.class);
+            else registerTo(HomeScreen.class);
         });
     }
 
-    public void redirectLogin() {
-        Intent login = new Intent(this, LoginScreen.class);
+    public void registerTo(Class<?> destinationClass) {
+        Intent login = new Intent(this, destinationClass);
         startActivity(login);
-        finish();
-    }
-
-    public void redirectMain() {
-        Intent main = new Intent(this, MainScreen.class);
-        startActivity(main);
         finish();
     }
 }

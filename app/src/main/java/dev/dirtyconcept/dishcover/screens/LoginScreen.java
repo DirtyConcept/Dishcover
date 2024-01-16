@@ -17,57 +17,51 @@ import dev.dirtyconcept.dishcover.utils.AnimationCommons;
 import dev.dirtyconcept.dishcover.utils.ValidationUtils;
 
 public class LoginScreen extends AppCompatActivity {
-
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private FirebaseAuth auth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        EditText emailField = AnimationCommons.setupField(this, R.id.login_email, R.string.email);
-        EditText passwordField = AnimationCommons.setupField(this, R.id.login_password, R.string.password);
+        EditText emailField = AnimationCommons.setupField(LoginScreen.this, R.id.login_email, R.string.email);
+        EditText passwordField = AnimationCommons.setupField(LoginScreen.this, R.id.login_password, R.string.password);
 
         Button loginButton = findViewById(R.id.login);
         Button redirectRegisterButton = findViewById(R.id.redirect_register);
         TextView textViewErrorMessage = findViewById(R.id.error_message);
 
-        loginButton.setOnClickListener(v -> {
-            textViewErrorMessage.setText("");
+        loginButton.setOnClickListener(v ->
+                attemptLogin(emailField.getText().toString(), passwordField.getText().toString(), textViewErrorMessage)
+        );
 
-            String email = emailField.getText().toString();
-            String password = passwordField.getText().toString();
+        redirectRegisterButton.setOnClickListener(v -> redirectTo(RegisterScreen.class));
+    }
 
-            if (ValidationUtils.isEmpty(email, password)) {
-                textViewErrorMessage.setText(R.string.empty_fields);
-                return;
-            }
+    private void attemptLogin(String email, String password, TextView errorMessageTextView) {
+        errorMessageTextView.setText("");
 
-            if (!isValidFormat(email, password)) {
-                textViewErrorMessage.setText(R.string.wrong_format);
-                return;
-            }
+        if (ValidationUtils.isEmpty(email, password)) {
+            errorMessageTextView.setText(R.string.empty_fields);
+            return;
+        }
 
-            loginButton.setEnabled(false);
+        if (!isValidFormat(email, password)) {
+            errorMessageTextView.setText(R.string.wrong_format);
+            return;
+        }
 
-            mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, task -> {
-                        if (task.isSuccessful() && task.getResult().getUser() != null) {
-                            Intent main = new Intent(this, MainScreen.class);
-                            startActivity(main);
-                            finish();
-                        } else {
-                            handleLoginFailure(task.getException(), textViewErrorMessage);
-                        }
-                        loginButton.setEnabled(true);
-                    });
-        });
+        setLoginButtonState(false);
 
-        redirectRegisterButton.setOnClickListener(v -> {
-            Intent register = new Intent(this, RegisterScreen.class);
-            startActivity(register);
-            finish();
-        });
+        auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful() && task.getResult().getUser() != null) {
+                        redirectTo(HomeScreen.class);
+                    } else {
+                        handleLoginFailure(task.getException(), errorMessageTextView);
+                    }
+                    setLoginButtonState(true);
+                });
     }
 
     private boolean isValidFormat(String email, String password) {
@@ -78,13 +72,27 @@ public class LoginScreen extends AppCompatActivity {
         if (exception == null) {
             errorMessageTextView.setText(R.string.login_failed);
         } else if (exception instanceof FirebaseAuthInvalidUserException) {
-            if (((FirebaseAuthInvalidUserException) exception).getErrorCode().equals("ERROR_USER_DISABLED")) {
-                errorMessageTextView.setText(R.string.login_account_disabled);
-            } else {
-                errorMessageTextView.setText(R.string.login_failed);
-            }
+            handleInvalidUser((FirebaseAuthInvalidUserException) exception, errorMessageTextView);
         } else if (exception instanceof FirebaseTooManyRequestsException) {
             errorMessageTextView.setText(getString(R.string.too_many_attempts, getString(R.string.login)));
         }
+    }
+
+    private void handleInvalidUser(FirebaseAuthInvalidUserException exception, TextView errorMessageTextView) {
+        errorMessageTextView.setText(
+                exception.getErrorCode().equals("ERROR_USER_DISABLED")
+                ? R.string.login_account_disabled
+                : R.string.login_failed
+        );
+    }
+
+    private void setLoginButtonState(boolean enabled) {
+        findViewById(R.id.login).setEnabled(enabled);
+    }
+
+    private void redirectTo(Class<?> destinationClass) {
+        Intent intent = new Intent(LoginScreen.this, destinationClass);
+        startActivity(intent);
+        finish();
     }
 }
