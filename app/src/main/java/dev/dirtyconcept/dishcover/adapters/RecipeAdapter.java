@@ -3,7 +3,6 @@ package dev.dirtyconcept.dishcover.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -53,20 +52,19 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         void onItemClick(View view, int position);
     }
 
-    static class RecipeViewHolder extends RecyclerView.ViewHolder {
+    public static class RecipeViewHolder extends RecyclerView.ViewHolder {
 
         private TextView textViewName;
         private TextView textViewDescription;
-        private Button buttonDetails;
 
         RecipeViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
 
+            itemView.findViewById(R.id.foodImage).setClipToOutline(true);
             textViewName = itemView.findViewById(R.id.textName);
             textViewDescription = itemView.findViewById(R.id.textDescription);
-            buttonDetails = itemView.findViewById(R.id.buttonOpen);
 
-            buttonDetails.setOnClickListener(v -> {
+            itemView.setOnClickListener(v -> {
                 if (listener != null) {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {

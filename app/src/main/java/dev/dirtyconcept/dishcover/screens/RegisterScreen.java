@@ -26,10 +26,10 @@ public class RegisterScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        EditText usernameField = AnimationCommons.setupField(RegisterScreen.this, R.id.register_username, R.string.username);
-        EditText emailField = AnimationCommons.setupField(RegisterScreen.this, R.id.register_email, R.string.email);
-        EditText passwordField = AnimationCommons.setupField(RegisterScreen.this, R.id.register_password, R.string.password);
-        EditText repasswordField = AnimationCommons.setupField(RegisterScreen.this, R.id.register_repassword, R.string.reenter_password);
+        EditText usernameField = AnimationCommons.setupAuthField(RegisterScreen.this, R.id.register_username, R.string.username);
+        EditText emailField = AnimationCommons.setupAuthField(RegisterScreen.this, R.id.register_email, R.string.email);
+        EditText passwordField = AnimationCommons.setupAuthField(RegisterScreen.this, R.id.register_password, R.string.password);
+        EditText repasswordField = AnimationCommons.setupAuthField(RegisterScreen.this, R.id.register_repassword, R.string.reenter_password);
 
         Button registerButton = findViewById(R.id.register);
         Button redirectLoginButton = findViewById(R.id.redirect_login);

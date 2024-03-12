@@ -24,8 +24,8 @@ public class LoginScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        EditText emailField = AnimationCommons.setupField(LoginScreen.this, R.id.login_email, R.string.email);
-        EditText passwordField = AnimationCommons.setupField(LoginScreen.this, R.id.login_password, R.string.password);
+        EditText emailField = AnimationCommons.setupAuthField(LoginScreen.this, R.id.login_email, R.string.email);
+        EditText passwordField = AnimationCommons.setupAuthField(LoginScreen.this, R.id.login_password, R.string.password);
 
         Button loginButton = findViewById(R.id.login);
         Button redirectRegisterButton = findViewById(R.id.redirect_register);
@@ -75,6 +75,8 @@ public class LoginScreen extends AppCompatActivity {
             handleInvalidUser((FirebaseAuthInvalidUserException) exception, errorMessageTextView);
         } else if (exception instanceof FirebaseTooManyRequestsException) {
             errorMessageTextView.setText(getString(R.string.too_many_attempts, getString(R.string.login)));
+        } else {
+            errorMessageTextView.setText(R.string.login_failed);
         }
     }
 

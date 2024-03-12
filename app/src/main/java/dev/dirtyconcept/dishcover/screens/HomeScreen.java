@@ -20,7 +20,7 @@ import dev.dirtyconcept.dishcover.data.Recipe;
 public class HomeScreen extends AppCompatActivity {
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference recipesCollection = db.collection("recipes");
+    private final CollectionReference recipesCollection = db.collection("queued");
 
     private RecyclerView recyclerView;
     private RecipeAdapter recipeAdapter;
@@ -33,18 +33,13 @@ public class HomeScreen extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         recipeAdapter = new RecipeAdapter();
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         recyclerView.setAdapter(recipeAdapter);
 
-        // Fetch 6 recipes from Firestore
         fetchRecipes();
 
-        // Set click listener for recipe items
         recipeAdapter.setOnItemClickListener((view, position) -> {
             Recipe selectedRecipe = recipeAdapter.getItem(position);
-            // Implement your logic to open a detailed view for the selected recipe
-            // You can pass the selected recipe to the next activity or fragment
-            // Example: openDetailedView(selectedRecipe);
         });
     }
 

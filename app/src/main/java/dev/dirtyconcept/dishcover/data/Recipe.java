@@ -4,16 +4,18 @@ import androidx.annotation.NonNull;
 
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
-import java.util.Arrays;
+import java.util.List;
+
+import dev.dirtyconcept.dishcover.utils.StringUtils;
 
 public class Recipe {
     private String name;
-    private String[] steps;
+    private List<String> steps;
     private String uploader;
-    private String[] links;
+    private List<String> links;
     private String description;
-    private Tag[] tags;
-    private Category category;
+    private List<String> tags;
+    private String category;
 
     // Default constructor required for Firestore
     public Recipe() {
@@ -29,11 +31,11 @@ public class Recipe {
         this.name = name;
     }
 
-    public String[] getSteps() {
+    public List<String> getSteps() {
         return steps;
     }
 
-    public void setSteps(String[] steps) {
+    public void setSteps(List<String> steps) {
         this.steps = steps;
     }
 
@@ -45,11 +47,11 @@ public class Recipe {
         this.uploader = uploader;
     }
 
-    public String[] getLinks() {
+    public List<String> getLinks() {
         return links;
     }
 
-    public void setLinks(String[] links) {
+    public void setLinks(List<String> links) {
         this.links = links;
     }
 
@@ -61,46 +63,24 @@ public class Recipe {
         this.description = description;
     }
 
-    public Tag[] getTags() {
+    public List<String> getTags() {
         return tags;
     }
 
-    public void setTags(Tag[] tags) {
+    public void setTags(List<String> tags) {
         this.tags = tags;
     }
 
-    public Category getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
     public static Recipe fromFirestoreDocument(QueryDocumentSnapshot document) {
-        Recipe recipe = document.toObject(Recipe.class);
-
-        // Convert tag and category IDs to enums
-        recipe.setTags(Arrays.stream(recipe.getTagIds())
-                .mapToObj(Tag::fromId)
-                .toArray(Tag[]::new));
-
-        recipe.setCategory(Category.fromId(recipe.getCategoryId()));
-
-        return recipe;
-    }
-
-    // Other methods...
-
-    private int[] getTagIds() {
-        return Arrays.stream(tags)
-                .map(Tag::getId)
-                .mapToInt(Integer::intValue)
-                .toArray();
-    }
-
-    private int getCategoryId() {
-        return category != null ? category.getId() : -1;
+        return document.toObject(Recipe.class);
     }
 
     @NonNull
@@ -108,11 +88,11 @@ public class Recipe {
     public String toString() {
         return "Recipe{" +
                 "name='" + name + '\'' +
-                ", steps=" + Arrays.toString(steps) +
+                ", steps=" + StringUtils.join(steps, ", ") +
                 ", uploader='" + uploader + '\'' +
-                ", links=" + Arrays.toString(links) +
+                ", links=" + StringUtils.join(links, ", ") +
                 ", description='" + description + '\'' +
-                ", tags=" + Arrays.toString(tags) +
+                ", tags=" + StringUtils.join(tags, ", ") +
                 ", category=" + category +
                 '}';
     }

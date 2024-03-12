@@ -1,46 +1,71 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="16dp"
-    android:background="@drawable/recipe_item_background">
+    android:layout_height="match_parent"
+    android:outlineProvider="background"
+    android:outlineSpotShadowColor="@color/weak_primary"
+    android:outlineAmbientShadowColor="@color/weak_primary"
+    android:backgroundTint="@color/background">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginEnd="16dp"
+        android:id="@+id/foodImage"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:contentDescription="IDK"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_launcher_foreground"
-        android:contentDescription="IDK" />
+        android:src="@drawable/red_background_view"
+        android:background="@drawable/rounded_image"
+        android:elevation="2dp"/>
 
     <TextView
         android:id="@+id/textName"
+        style="@style/NunitoBold"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Recipe Name"
-        android:textColor="@color/primary"
+        android:layout_height="match_parent"
+        android:layout_marginTop="15dp"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
+        android:text="{Recipe.name}"
+        android:textColor="@color/background"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:elevation="3dp"/>
 
     <TextView
         android:id="@+id/textDescription"
+        style="@style/NunitoBold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:paddingTop="60dp"
         android:layout_below="@id/textName"
-        android:layout_marginTop="8dp"
-        android:text="Recipe Description"
+        android:text="{Recipe.description}"
         android:textColor="@color/weak_primary"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:elevation="4dp"/>
 
-    <Button
-        android:id="@+id/buttonOpen"
-        android:layout_width="wrap_content"
+    <TextView
+        style="@style/NunitoBold"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textDescription"
-        android:layout_marginTop="16dp"
-        android:text="Open"
-        android:textColor="@color/background"
-        android:background="@color/secondary" />
+        android:text="Category: {Recipe.category}"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:paddingTop="120dp"
+        android:textColor="@color/weak_primary"
+        android:elevation="5dp"/>
 
-</RelativeLayout>
+    <TextView
+        style="@style/NunitoBold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tags: {Recipe.tags}"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:paddingTop="120dp"
+        android:paddingLeft="190dp"
+        android:textColor="@color/weak_primary"
+        android:elevation="5dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

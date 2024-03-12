@@ -21,9 +21,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".screens.LoginScreen" />
-        <activity android:name=".screens.RegisterScreen" />
-        <activity android:name=".screens.HomeScreen" />
+        <activity
+            android:name=".screens.LoginScreen"
+            android:exported="false"/>
+        <activity
+            android:name=".screens.RegisterScreen"
+            android:exported="false"/>
+        <activity
+            android:name=".screens.HomeScreen"
+            android:exported="false"/>
+
     </application>
 
 </manifest>
